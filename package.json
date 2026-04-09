@@ -58,5 +58,8 @@
     "better-sqlite3": "^9.4.3",
     "cheerio": "^1.2.0",
     "zod": "^3.22.4"
+  },
+  "overrides": {
+    "path-to-regexp": "^8.4.0"
   }
 }
