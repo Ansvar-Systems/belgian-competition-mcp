@@ -123,14 +123,15 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         const parsed = GetDecisionArgs.parse(args);
         const decision = getDecision(parsed.case_number);
         if (!decision) return errorContent(`Decision not found: ${parsed.case_number}`);
+        const decisionRow = decision as unknown as Record<string, unknown>;
         return textContent({
           ...(typeof decision === 'object' ? decision : { data: decision }),
           _citation: buildCitation(
-            decision.case_number || parsed.case_number,
-            decision.title || decision.subject || parsed.case_number,
+            (decisionRow["case_number"] as string | undefined) || parsed.case_number,
+            (decisionRow["title"] as string | undefined) || (decisionRow["subject"] as string | undefined) || parsed.case_number,
             'be_comp_get_decision',
             { case_number: parsed.case_number },
-            decision.url || decision.source_url || null,
+            (decisionRow["url"] as string | undefined) || (decisionRow["source_url"] as string | undefined) || null,
           ),
         });
       }
@@ -143,14 +144,15 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         const parsed = GetMergerArgs.parse(args);
         const merger = getMerger(parsed.case_number);
         if (!merger) return errorContent(`Merger case not found: ${parsed.case_number}`);
+        const mergerRow = merger as unknown as Record<string, unknown>;
         return textContent({
           ...(typeof merger === 'object' ? merger : { data: merger }),
           _citation: buildCitation(
-            merger.case_number || parsed.case_number,
-            merger.title || merger.subject || parsed.case_number,
+            (mergerRow["case_number"] as string | undefined) || parsed.case_number,
+            (mergerRow["title"] as string | undefined) || (mergerRow["subject"] as string | undefined) || parsed.case_number,
             'be_comp_get_merger',
             { case_number: parsed.case_number },
-            merger.url || merger.source_url || null,
+            (mergerRow["url"] as string | undefined) || (mergerRow["source_url"] as string | undefined) || null,
           ),
         });
       }
