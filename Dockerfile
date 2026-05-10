@@ -9,7 +9,7 @@
 # ─────────────────────────────────────────────────────────────────────────────
 
 # --- Stage 1: Build TypeScript and rebuild native bindings ---
-FROM node:20-slim AS builder
+FROM node:26-slim AS builder
 
 WORKDIR /app
 
@@ -39,7 +39,7 @@ RUN npm run build
 RUN npm prune --omit=dev
 
 # --- Stage 2: Production ---
-FROM node:20-slim AS production
+FROM node:26-slim AS production
 
 WORKDIR /app
 ENV NODE_ENV=production
