@@ -1,92 +1,60 @@
 # Belgian Competition MCP
 
+<!-- ANSVAR-CTA-BEGIN -->
+> ### ▶ Try this MCP instantly via Ansvar Gateway
+> **50 free queries/day · no card required · OAuth signup at [ansvar.eu/gateway](https://ansvar.eu/gateway)**
+>
+> One endpoint, one OAuth signup, access from any MCP-compatible client.
+
+### Connect
+
+**Claude Code** (one line):
+
+```bash
+claude mcp add ansvar --transport http https://gateway.ansvar.eu/mcp
+```
+
+**Claude Desktop / Cursor** — add to `claude_desktop_config.json` (or `mcp.json`):
+
+```json
+{
+  "mcpServers": {
+    "ansvar": {
+      "type": "url",
+      "url": "https://gateway.ansvar.eu/mcp"
+    }
+  }
+}
+```
+
+**Claude.ai** — Settings → Connectors → Add custom connector → paste `https://gateway.ansvar.eu/mcp`
+
+First request opens an OAuth flow at [ansvar.eu/gateway](https://ansvar.eu/gateway). After signup, your client is bound to your account; tier (free / premium / team / company) determines fan-out, quota, and which downstream MCPs are reachable.
+
+---
+
+## Self-host this MCP
+
+You can also clone this repo and build the corpus yourself. The schema,
+fetcher, and tool implementations all live here. What is not in the repo is
+the pre-built database — TDM and standards-licensing constraints on the
+upstream sources mean we host the corpus on Ansvar infrastructure rather
+than redistribute it as a public artifact.
+
+Build your own: run this repo's ingestion script (entry-point varies per
+repo — typically `scripts/ingest.sh`, `npm run ingest`, or `make ingest`;
+check the repo root).
+<!-- ANSVAR-CTA-END -->
+
+
 **Belgian competition data for AI compliance tools.**
 
-[![npm version](https://badge.fury.io/js/%40ansvar%2Fbelgian-competition-mcp.svg)](https://www.npmjs.com/package/@ansvar/belgian-competition-mcp)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![CI](https://github.com/Ansvar-Systems/belgian-competition-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/Ansvar-Systems/belgian-competition-mcp/actions/workflows/ci.yml)
 
 Query Belgian competition data -- regulations, decisions, and requirements from BMA (Belgian Competition Authority) -- directly from Claude, Cursor, or any MCP-compatible client.
 
 Built by [Ansvar Systems](https://ansvar.eu) -- Stockholm, Sweden
-
----
-
-## Quick Start
-
-### Use Remotely (No Install Needed)
-
-> Connect directly to the hosted version -- zero dependencies, nothing to install.
-
-**Endpoint:** `https://mcp.ansvar.eu/belgian-competition/mcp`
-
-| Client | How to Connect |
-|--------|---------------|
-| **Claude.ai** | Settings > Connectors > Add Integration > paste URL |
-| **Claude Code** | `claude mcp add belgian-competition-mcp --transport http https://mcp.ansvar.eu/belgian-competition/mcp` |
-| **Claude Desktop** | Add to config (see below) |
-| **GitHub Copilot** | Add to VS Code settings (see below) |
-
-**Claude Desktop** -- add to `claude_desktop_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "belgian-competition-mcp": {
-      "type": "url",
-      "url": "https://mcp.ansvar.eu/belgian-competition/mcp"
-    }
-  }
-}
-```
-
-**GitHub Copilot** -- add to VS Code `settings.json`:
-
-```json
-{
-  "github.copilot.chat.mcp.servers": {
-    "belgian-competition-mcp": {
-      "type": "http",
-      "url": "https://mcp.ansvar.eu/belgian-competition/mcp"
-    }
-  }
-}
-```
-
-### Use Locally (npm)
-
-```bash
-npx @ansvar/belgian-competition-mcp
-```
-
-**Claude Desktop** -- add to `claude_desktop_config.json`:
-
-**macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
-**Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
-
-```json
-{
-  "mcpServers": {
-    "belgian-competition-mcp": {
-      "command": "npx",
-      "args": ["-y", "@ansvar/belgian-competition-mcp"]
-    }
-  }
-}
-```
-
-**Cursor / VS Code:**
-
-```json
-{
-  "mcp.servers": {
-    "belgian-competition-mcp": {
-      "command": "npx",
-      "args": ["-y", "@ansvar/belgian-competition-mcp"]
-    }
-  }
-}
-```
 
 ---
 
@@ -186,26 +154,9 @@ npm run check-updates  # Check for new regulatory data
 
 ---
 
-## Related Projects
+## More Ansvar MCPs
 
-This server is part of **Ansvar's MCP fleet** -- 276 MCP servers covering law, regulation, and compliance across 119 jurisdictions.
-
-### Law MCPs
-
-Full national legislation for 108 countries. Example: [@ansvar/swedish-law-mcp](https://github.com/Ansvar-Systems/swedish-law-mcp) -- 2,415 Swedish statutes with EU cross-references.
-
-### Sector Regulator MCPs
-
-National regulatory authority data for 29 EU/EFTA countries across financial regulation, data protection, cybersecurity, and competition. This MCP is one of 116 sector regulator servers.
-
-### Domain MCPs
-
-Specialized compliance domains: [EU Regulations](https://github.com/Ansvar-Systems/EU_compliance_MCP), [Security Frameworks](https://github.com/Ansvar-Systems/security-frameworks-mcp), [Automotive Cybersecurity](https://github.com/Ansvar-Systems/Automotive-MCP), [OT/ICS Security](https://github.com/Ansvar-Systems/ot-security-mcp), [Sanctions](https://github.com/Ansvar-Systems/Sanctions-MCP), and more.
-
-Browse the full fleet at [mcp.ansvar.eu](https://mcp.ansvar.eu).
-
----
-
+Full fleet at [ansvar.eu/gateway](https://ansvar.eu/gateway).
 ## Contributing
 
 Contributions welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
